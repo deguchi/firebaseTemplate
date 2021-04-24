@@ -5,7 +5,7 @@ npm scripts で pug+sass+TypeScript+React+Firebaseがビルドできてオート
 
 https://firebase.google.com/docs/web/setup?hl=ja
 
-- [index.tsx](./src/index.tsx)のfirebaseConfigを書き換える
+- GitHubリポジトリ->Settings->SecretにFIREBASECONFIGを作成
 - Authentication->Sign-in method->Googleログインを有効化
 - Authentication->Sign-in method->承認済みドメインを追加
 - FireStoreを有効化　リージョンに注意（後から変更できない）

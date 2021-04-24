@@ -17,9 +17,9 @@ jobs:
             ${{ runner.OS }}-
       - shell: bash
         env:
-          firebaseConfig: ${{ secrets.firebaseConfig }}
+          FIREBASECONFIG: ${{ secrets.FIREBASECONFIG }}
         run: |
-          echo "$firebaseConfig" > firebaseConfig.json
+          echo "$FIREBASECONFIG" > firebaseConfig.json
       - name: Install and Build 🔧
         run: |
           npm install --no-optional
