@@ -1,4 +1,4 @@
-# TightlyTemplate
+# FireBaseTemplate
 npm scripts で pug+sass+TypeScript+React+Firebaseがビルドできてオートリロードできるサイト作成環境を書く  
 
 ## FireBaseのセットアップ
