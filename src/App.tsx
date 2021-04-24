@@ -43,7 +43,6 @@ class App extends Component<Props, State> {
     }
     GoogleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider()
-        provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
         firebase.auth().signInWithRedirect(provider)
     }
     signOut() {
