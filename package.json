@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all clean build:** watch -s",
+    "firestore": "firebase emulators:start",
+    "rule": "firebase deploy --only firestore:rules",
     "clean": "rimraf build",
     "watch": "concurrently \"npm run watch:pug\" \"npm run watch:sass\" \"npm run watch:ts\" \"npm run watch:browser-sync\"",
     "watch:browser-sync": "browser-sync start --config ./bs-config.js",
@@ -35,11 +37,14 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "core-js": "^3.10.2",
+    "firebase": "^8.4.2",
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
+    "@firebase/auth": "^0.16.5",
+    "@firebase/firestore-types": "^2.2.0",
     "@types/node": "^14.10.2",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
@@ -50,6 +55,7 @@
     "cpx": "^1.5.0",
     "esbuild": "^0.8.57",
     "eslint": "^7.9.0",
+    "firebase-tools": "^9.10.0",
     "npm-force-resolutions": "^0.0.3",
     "npm-run-all": "^4.1.5",
     "postcss": "^7.0.27",
