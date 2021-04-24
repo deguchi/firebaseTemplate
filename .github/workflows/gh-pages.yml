@@ -16,10 +16,10 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - shell: bash
-          env:
-            SUPER_SECRET: ${{ secrets.SuperSecret }}
-          run: |
-            print "$SUPER_SECRET" > firebaseConfig.json
+        env:
+          firebaseConfig: ${{ secrets.firebaseConfig }}
+        run: |
+          print "$firebaseConfig" > firebaseConfig.json
       - name: Install and Build 🔧
         run: |
           npm install --no-optional
