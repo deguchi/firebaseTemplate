@@ -1,7 +1,7 @@
-import firebase, {db} from './index'
+import firebase, { db } from './index'
 
 import React from 'react'
-import {Component} from 'react';
+import { Component } from 'react';
 
 interface Props {
 }
@@ -11,7 +11,7 @@ interface State {
 }
 
 class App extends Component<Props, State> {
-    constructor(props:Props) {
+    constructor(props: Props) {
         super(props)
         this.state = {
             user: null
@@ -20,7 +20,7 @@ class App extends Component<Props, State> {
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-              this.setState({user})
+                this.setState({ user })
             }
         });
         firebase.auth()
@@ -32,7 +32,7 @@ class App extends Component<Props, State> {
                 }
                 const user = result.user;
                 console.log(user)
-                this.setState({user})
+                this.setState({ user })
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -49,9 +49,9 @@ class App extends Component<Props, State> {
         firebase.auth().signOut().then(() => {
             // Sign-out successful.
             location.reload()
-          }).catch((error) => {
+        }).catch((error) => {
             // An error happened.
-          });          
+        });
     }
     add() {
         db.collection("users").add({
@@ -67,15 +67,15 @@ class App extends Component<Props, State> {
             console.error("Error adding document: ", error);
         })
         db.collection("users").get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
             });
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
     }
     render() {
         return (<React.Fragment>
