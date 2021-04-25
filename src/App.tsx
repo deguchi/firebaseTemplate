@@ -3,6 +3,10 @@ import firebase, { db } from './index'
 import React from 'react'
 import { Component } from 'react';
 
+interface App {
+    input: HTMLInputElement | null
+}
+
 interface Props {
 }
 
@@ -77,6 +81,50 @@ class App extends Component<Props, State> {
                 console.log("Error getting documents: ", error);
             });
     }
+    setInputRef(element: HTMLInputElement) {
+        this.input = element;
+    }
+    loadImage() {
+        if (this.input && this.input.files) {
+            let reader: any = null;
+            Array.from(this.input.files).map((file: any) => {
+                reader = new FileReader();
+                reader.onload = async (e: any) => {
+                    const storageRef = firebase.storage().ref();
+                    const ref = storageRef.child('test.jpg');
+                    const uploadTask = ref.put(e.target.result)
+                    uploadTask.on('state_changed', (snapshot: any) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                        switch (snapshot.state) {
+                            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                console.log('Upload is paused');
+                                break;
+                            case firebase.storage.TaskState.RUNNING: // or 'running'
+                                console.log('Upload is running');
+                                break;
+                        }
+                    }, (error) => {
+                        console.log(error)
+                    }, async () => {
+                        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL()
+                        console.log('File available at', downloadURL);
+
+                        // ファイルの削除
+                        const desertRef = storageRef.child('test.jpg');
+                        desertRef.delete().then(function () {
+                            console.log('File deleted successfully')
+                        }).catch(function (error) {
+                            console.log(error)
+                        });
+
+                    });
+                }
+                reader.readAsDataURL(file)
+            });
+        }
+    }
+
     render() {
         return (<React.Fragment>
             {this.state.user ? (
@@ -84,6 +132,10 @@ class App extends Component<Props, State> {
                     <p>Welcome {this.state.user.displayName}</p>
                     <button onClick={this.signOut.bind(this)}>SignOut</button>
                     <button onClick={this.add.bind(this)}>add sample data on FireStore</button>
+                    <form action="" encType="multipart/form-data">
+                        <input className="file" onChange={this.loadImage.bind(this)} id="file" type="file" name="file" accept="image/*" multiple={true} ref={this.setInputRef.bind(this)} />
+                        <label htmlFor="file"></label>
+                    </form>
                 </React.Fragment>
             ) : (
                 <button onClick={this.GoogleLogin.bind(this)}>Google Login</button>
