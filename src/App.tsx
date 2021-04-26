@@ -11,6 +11,7 @@ interface Props {
 }
 
 interface State {
+    loading: boolean
     user: any | null
 }
 
@@ -18,6 +19,7 @@ class App extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
+            loading: true,
             user: null
         }
     }
@@ -26,24 +28,8 @@ class App extends Component<Props, State> {
             if (user) {
                 this.setState({ user })
             }
+            this.setState({loading: false})
         });
-        firebase.auth()
-            .getRedirectResult()
-            .then((result) => {
-                if (result.credential) {
-                    const credential = result.credential;
-                    const token = credential.accessToken;
-                }
-                const user = result.user;
-                console.log(user)
-                this.setState({ user })
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = error.credential;
-                console.log(errorCode, errorMessage, email, credential)
-            });
     }
     GoogleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider()
@@ -127,19 +113,27 @@ class App extends Component<Props, State> {
 
     render() {
         return (<React.Fragment>
-            {this.state.user ? (
+            {this.state.loading ? null : (this.state.user ? (
                 <React.Fragment>
-                    <p>Welcome {this.state.user.displayName}</p>
-                    <button onClick={this.signOut.bind(this)}>SignOut</button>
-                    <button onClick={this.add.bind(this)}>add sample data on FireStore</button>
+                    <div className="profile">
+                        <img src={this.state.user.photoURL} alt="" />
+                        <p>
+                            {this.state.user.displayName}
+                        </p>
+                        <button onClick={this.signOut.bind(this)}>SignOut</button>
+                    </div>
+                    <br />
+                    <button onClick={this.add.bind(this)}>add sample data in FireStore</button>
+                    <br />
+                    <br />
                     <form action="" encType="multipart/form-data">
-                        <input className="file" onChange={this.loadImage.bind(this)} id="file" type="file" name="file" accept="image/*" multiple={true} ref={this.setInputRef.bind(this)} />
                         <label htmlFor="file"></label>
+                        <input className="file" onChange={this.loadImage.bind(this)} id="file" type="file" name="file" accept="image/*" multiple={true} ref={this.setInputRef.bind(this)} />
                     </form>
                 </React.Fragment>
             ) : (
                 <button onClick={this.GoogleLogin.bind(this)}>Google Login</button>
-            )}
+            ))}
         </React.Fragment>);
     }
 }
