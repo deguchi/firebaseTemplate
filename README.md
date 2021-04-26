@@ -5,11 +5,19 @@ npm scripts で pug+sass+TypeScript+React+Firebaseがビルドできてオート
 
 https://firebase.google.com/docs/web/setup?hl=ja
 
+- [.firebaserc](./.firebaserc)のプロジェクトidを変更
+- firebase-toolsのプロジェクトを切り替え
+    ```
+    npx firebase use [project id]
+    ```
 - GitHubリポジトリ->Settings->SecretにFIREBASECONFIGを作成
 - Authentication->Sign-in method->Googleログインを有効化
 - Authentication->Sign-in method->承認済みドメインを追加
 - FireStoreを有効化　リージョンに注意（後から変更できない）
 - FireStoreのルールのデプロイ
+    ```
+    npm run rule
+    ```
 
 ## 使い方
 
