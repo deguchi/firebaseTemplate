@@ -38,12 +38,12 @@
     "@types/react-dom": "^17.0.0",
     "core-js": "^3.10.2",
     "firebase": "^8.4.2",
+    "@firebase/auth": "^0.16.5",
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@firebase/auth": "^0.16.5",
     "@firebase/firestore-types": "^2.2.0",
     "@types/node": "^14.10.2",
     "@typescript-eslint/eslint-plugin": "^4.1.1",

@@ -8,7 +8,7 @@ https://firebase.google.com/docs/web/setup?hl=ja
 - [.firebaserc](./.firebaserc)のプロジェクトidを変更
 - firebase-toolsのプロジェクトを切り替え
     ```
-    npx firebase use [project id]
+    npx firebase use default
     ```
 - GitHubリポジトリ->Settings->SecretにFIREBASECONFIGを作成
 - Authentication->Sign-in method->Googleログインを有効化
