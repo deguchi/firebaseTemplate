@@ -92,7 +92,7 @@ class App extends Component<Props, State> {
                 reader.onload = async (e: any) => {
                     const storageRef = firebase.storage().ref();
                     const ref = storageRef.child('test.jpg');
-                    const uploadTask = ref.put(e.target.result)
+                    const uploadTask = ref.putString(e.target.result, 'data_url')
                     uploadTask.on('state_changed', (snapshot: any) => {
                         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                         console.log('Upload is ' + progress + '% done');
@@ -110,13 +110,13 @@ class App extends Component<Props, State> {
                         const downloadURL = await uploadTask.snapshot.ref.getDownloadURL()
                         console.log('File available at', downloadURL);
 
-                        // ファイルの削除
-                        const desertRef = storageRef.child('test.jpg');
-                        desertRef.delete().then(function () {
-                            console.log('File deleted successfully')
-                        }).catch(function (error) {
-                            console.log(error)
-                        });
+                        // // ファイルの削除
+                        // const desertRef = storageRef.child('test.jpg');
+                        // desertRef.delete().then(function () {
+                        //     console.log('File deleted successfully')
+                        // }).catch(function (error) {
+                        //     console.log(error)
+                        // });
 
                     });
                 }
