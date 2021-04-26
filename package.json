@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm-run-all clean build:** watch -s",
     "firestore": "firebase emulators:start",
-    "rule": "firebase deploy --only firestore:rules",
+    "rule": "npx firebase use default && firebase deploy --only firestore:rules",
     "clean": "rimraf build",
     "watch": "concurrently \"npm run watch:pug\" \"npm run watch:sass\" \"npm run watch:ts\" \"npm run watch:browser-sync\"",
     "watch:browser-sync": "browser-sync start --config ./bs-config.js",
